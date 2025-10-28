@@ -17,8 +17,8 @@ public class FollowCamera : MonoBehaviour
     void Update()
     {
         Vector3 pos = transform.position;
-        pos.x = target.position.x + offsetX;
-        pos.y = target.position.y + offsetY;
+        pos.x = target.position.x;
+        pos.y = target.position.y;
         
         transform.position = pos;
     }
