@@ -2,6 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
+
 
 public class NPCTriger : MonoBehaviour
 {
@@ -9,44 +11,49 @@ public class NPCTriger : MonoBehaviour
     public Text TextTriger;
     public Vector2 TextTransform;
     float TrigerPosition;
-    
+    public GameObject npc1;
+    private bool isNearNPC = false;
     void Start()
     {
 
-        //Vector2 TrigerPosition = new Vector2(Player.transform.position.x + 5f,0);
+        
     }
 
     
     void Update()
     {
-        
+        if (Input.GetKeyDown(KeyCode.F) && npc1 != null)
+        {
+            
+            SceneManager.LoadScene("Stack");
+        }
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.gameObject.CompareTag("Player"))
         {
-            Debug.Log("ºÎµúÄ§");
             TextTriger.gameObject.SetActive(true);
-            transform.parent = this.transform;
-            if (Input.GetKeyDown(KeyCode.F) && transform.parent.name == "tile_0186")
+            if (collision.gameObject == npc1)
             {
-                //½ÇÇàÇÑ´Ù
-            }
-            else if(Input.GetKeyDown(KeyCode.F) && transform.parent.name == "tile_0105")
-            {
+                
+                isNearNPC = true;
+
 
             }
-            
         }
-        
-        Debug.Log(collision.gameObject.name);
     }
     private void OnTriggerExit2D(Collider2D collision)
     {
-        if (collision.CompareTag("Player"))
+        if (collision.gameObject.CompareTag("Player"))
         {
             TextTriger.gameObject.SetActive(false);
+            if (collision.gameObject == npc1)
+            {
+                TextTriger.gameObject.SetActive(false);
+                Debug.Log("ë¶€ë”ªì¹¨");
+                isNearNPC = false;
+            }
         }
     }
 }
